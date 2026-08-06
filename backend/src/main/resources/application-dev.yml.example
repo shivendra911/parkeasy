@@ -1,0 +1,28 @@
+# ===========================================================
+# ParkEasy Backend — Dev Profile
+# ===========================================================
+# Activated with: --spring.profiles.active=dev
+# Copy to application-dev.yml and adjust as needed.
+# ===========================================================
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/parkeasy_dev?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+    username: root
+    password: root
+
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+jwt:
+  secret: dev-only-secret-do-not-use-in-production-replace-me-with-64-chars!!
+  expiration-ms: 86400000
+
+logging:
+  level:
+    com.parkeasy: TRACE
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE

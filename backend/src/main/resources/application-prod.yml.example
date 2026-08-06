@@ -1,0 +1,24 @@
+# ===========================================================
+# ParkEasy Backend — Production Profile
+# ===========================================================
+# Activated with: --spring.profiles.active=prod
+# All secrets come from environment variables.
+# ===========================================================
+
+spring:
+  datasource:
+    url: ${DATABASE_URL}
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
+
+  jpa:
+    show-sql: false
+
+jwt:
+  secret: ${JWT_SECRET}
+  expiration-ms: ${JWT_EXPIRATION_MS:86400000}
+
+logging:
+  level:
+    root: WARN
+    com.parkeasy: INFO

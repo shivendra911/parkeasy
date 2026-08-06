@@ -1,0 +1,4 @@
+/*  Redirect all routes to index.html for SPA client-side routing  */
+/*    (Netlify / Render / similar static hosts)                     */
+/*  /api/*  200
+/*    /index.html   200

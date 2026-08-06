@@ -1,0 +1,62 @@
+# ===========================================================
+# ParkEasy — Docker Compose (Local Development)
+# ===========================================================
+# Usage: docker compose up -d
+# ===========================================================
+
+services:
+  # --- MySQL Database ---
+  mysql:
+    image: mysql:8.0
+    container_name: parkeasy-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: parkeasy_dev
+      MYSQL_USER: parkeasy_user
+      MYSQL_PASSWORD: parkeasy_pass
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # --- Spring Boot Backend ---
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: parkeasy-backend
+    restart: unless-stopped
+    depends_on:
+      mysql:
+        condition: service_healthy
+    environment:
+      SPRING_PROFILES_ACTIVE: dev
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/parkeasy_dev?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+      SPRING_DATASOURCE_USERNAME: parkeasy_user
+      SPRING_DATASOURCE_PASSWORD: parkeasy_pass
+      JWT_SECRET: docker-dev-secret-replace-in-production-must-be-at-least-64-chars!!
+    ports:
+      - "8080:8080"
+
+  # --- React Frontend (dev server) ---
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: parkeasy-frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - "5173:5173"
+    environment:
+      VITE_API_BASE_URL: http://localhost:8080/api/v1
+
+volumes:
+  mysql_data:

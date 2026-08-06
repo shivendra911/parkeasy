@@ -1,0 +1,48 @@
+# ---------------------------
+# ParkEasy — Root .gitignore
+# ---------------------------
+
+# === IDE / Editor ===
+.idea/
+.vscode/
+*.iws
+*.iml
+*.ipr
+*.swp
+*.swo
+*~
+
+# === OS ===
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# === Backend (Java / Maven) ===
+backend/target/
+!backend/.mvn/wrapper/maven-wrapper.jar
+backend/.apt_generated
+backend/.classpath
+backend/.factorypath
+backend/.project
+backend/.settings
+backend/.springBeans
+backend/.sts4-cache
+
+# Backend secrets (never commit real config)
+backend/src/main/resources/application.yml
+backend/src/main/resources/application-dev.yml
+backend/src/main/resources/application-prod.yml
+
+# === Frontend (Node / Vite) ===
+frontend/node_modules/
+frontend/dist/
+frontend/.env
+frontend/.env.local
+frontend/.env.*.local
+
+# === Docker ===
+docker-compose.override.yml
+
+# === Logs ===
+*.log
+npm-debug.log*

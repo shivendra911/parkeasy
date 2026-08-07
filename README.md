@@ -99,8 +99,8 @@ npm run dev
 
 The backend exposes a fully documented OpenAPI specification. Once the Spring Boot application is running, you can interact with the API via Swagger UI:
 
-- **Swagger UI:** [http://localhost:8080/api/v1/swagger-ui.html](http://localhost:8080/api/v1/swagger-ui.html)
-- **OpenAPI JSON:** [http://localhost:8080/api/v1/v3/api-docs](http://localhost:8080/api/v1/v3/api-docs)
+- **Swagger UI:** [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)
+- **OpenAPI JSON:** [http://localhost:8080/v3/api-docs](http://localhost:8080/v3/api-docs)
 
 ## 👤 Test Accounts
 

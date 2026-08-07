@@ -29,7 +29,7 @@ const Register = () => {
     
     try {
       const response = await apiClient.post('/auth/register', formData);
-      login(response.data.user, response.data.accessToken);
+      login(response.data.user);
       navigate('/parkings');
     } catch (err) {
       if (err.response?.data && typeof err.response.data === 'object') {
@@ -80,7 +80,7 @@ const Register = () => {
                   <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                     <User className="h-5 w-5 text-slate-500" />
                   </div>
-                  <input id="firstName" name="firstName" type="text" required value={formData.firstName} onChange={handleChange} className="input-field pl-11" placeholder="John" />
+                  <input id="firstName" name="firstName" type="text" required minLength={2} maxLength={50} pattern="^[a-zA-Z\s\-]+$" title="Only letters, spaces, and hyphens are allowed" value={formData.firstName} onChange={handleChange} className="input-field pl-11" placeholder="John" />
                 </div>
               </div>
 
@@ -90,7 +90,7 @@ const Register = () => {
                   <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                     <User className="h-5 w-5 text-slate-500" />
                   </div>
-                  <input id="lastName" name="lastName" type="text" required value={formData.lastName} onChange={handleChange} className="input-field pl-11" placeholder="Doe" />
+                  <input id="lastName" name="lastName" type="text" required minLength={2} maxLength={50} pattern="^[a-zA-Z\s\-]+$" title="Only letters, spaces, and hyphens are allowed" value={formData.lastName} onChange={handleChange} className="input-field pl-11" placeholder="Doe" />
                 </div>
               </div>
             </div>
@@ -111,7 +111,7 @@ const Register = () => {
                 <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                   <Phone className="h-5 w-5 text-slate-500" />
                 </div>
-                <input id="phone" name="phone" type="text" value={formData.phone} onChange={handleChange} className="input-field pl-11" placeholder="+1 (555) 000-0000" />
+                <input id="phone" name="phone" type="text" required pattern="^\+?[0-9]{10,15}$" title="Must be a valid 10 to 15 digit phone number" value={formData.phone} onChange={handleChange} className="input-field pl-11" placeholder="+1 (555) 000-0000" />
               </div>
             </div>
 
@@ -121,7 +121,7 @@ const Register = () => {
                 <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                   <Lock className="h-5 w-5 text-slate-500" />
                 </div>
-                <input id="password" name="password" type="password" required minLength={6} value={formData.password} onChange={handleChange} className="input-field pl-11" placeholder="Min 6 characters" />
+                <input id="password" name="password" type="password" required minLength={8} pattern="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!]).*$" title="At least 8 chars, 1 uppercase, 1 lowercase, 1 number, 1 special character" value={formData.password} onChange={handleChange} className="input-field pl-11" placeholder="Strong password" />
               </div>
             </div>
 

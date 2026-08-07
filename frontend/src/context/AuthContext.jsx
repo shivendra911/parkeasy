@@ -10,32 +10,34 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Check if user is logged in on mount
     const checkLoggedIn = async () => {
-      const token = localStorage.getItem('token');
-      if (token) {
-        try {
-          const response = await apiClient.get('/users/me');
-          setUser(response.data);
-        } catch (error) {
-          console.error("Failed to fetch user profile", error);
-          localStorage.removeItem('token');
-        }
+      try {
+        const response = await apiClient.get('/users/me');
+        setUser(response.data);
+      } catch (error) {
+        // 401 Unauthorized expected if no valid cookie exists
+        setUser(null);
+      } finally {
+        setLoading(false);
       }
-      setLoading(false);
     };
 
     checkLoggedIn();
   }, []);
 
-  const login = (userData, token) => {
-    localStorage.setItem('token', token);
+  const login = (userData) => {
     setUser(userData);
   };
 
-  const logout = () => {
-    localStorage.removeItem('token');
-    setUser(null);
+  const logout = async () => {
+    try {
+      await apiClient.post('/auth/logout');
+    } catch (error) {
+      console.error('Logout failed on backend', error);
+    } finally {
+      setUser(null);
+      window.location.href = '/login';
+    }
   };
 
   const value = {

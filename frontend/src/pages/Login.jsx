@@ -19,7 +19,7 @@ const Login = () => {
     
     try {
       const response = await apiClient.post('/auth/login', { email, password });
-      login(response.data.user, response.data.accessToken);
+      login(response.data.user);
       navigate('/parkings');
     } catch (err) {
       setError(err.response?.data?.message || 'Invalid email or password');

